@@ -1,0 +1,83 @@
+---
+layout: post
+title:  "React Day2"
+date:   2018-04-05 15:01:00 +0900
+categories: jekyll update
+---
+> ##### 이 포스팅은 `React로 구현하는 웹 애플리케이션 제작 CAMP 4기` 수업 내용 바탕으로 정리된 글 입니다.
+
+
+리액트 컴포넌트 디버깅
+----------
+* https://gist.github.com/velopert/5ead29e052d715bae9cf47940c6f97b9
+
+#### 설치
+1) Debugger For Chrome VSCode 확장 프로그램 설치
+<br />
+2) debugging 폴더 생성 후 .vscode/launch.json 파일 생성
+<br />
+3) launch.json 파일에 아래 코드를 입력
+```
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceRoot}/src"
+    }
+  ]
+}
+```
+4) yarn start or npm start 를 통해서 서버 실행
+<br />
+5) 코드 좌측에 브레이크포인트를 누른 후 VSCode 에서 F5 또는 디버그 > 디버깅 시작 버튼을 누르면 디버깅이 시작된다.<br />(크롬 디버깅 하는 것과 같음)
+<br />
+* Arrow function 을 사용할 경우 디버깅이 잘 안될 수 있다. 그럴때 constructor(props) 를 넣어주면 브레이크 포인트를 걸어줬을때 제대로 작동할 수 있다.
+```
+constructor(props) {
+  super(props);
+  this.handleClick = this.handleClick.bind(this);
+}
+```
+<br />
+<br />
+
+#### 렌더링에서 크래쉬가 될 경우
+1) 존재 하지 않는 객체의 값을 불러올 때<br />
+2) 존재 하지 않은 함수를 호출할 때<br />
+3) 배열 내장 함수를 호출 할 때
+* null 체크를 제대로 하지 않을 때 렌더에서 크래쉬 될 수 있다.
+* 크래쉬 되었을 때는 componentDidCatch에서 외부에서 잡을 수 있다.
+
+
+------------------------------------------------------------------------
+```
+성능 최적화 업데이트
+Props : 부모가 자식에게 넘겨주는 값
+        부모한테 받아온 props는 수정할 수 없다.
+        props를 수정할 수 있는 함수를 부모에게서 받아와서 수정할 수 있다.
+State : 컴포넌트 자신이 들고 있는 값.
+        State 를 수정하려면 setState 를 통해서 수정이 가능함.
+
+
+스프레드오퍼레이터
+const array = [1, 2, 3, 4, 5]
+const array2 = [ ...array, 10]
+
+
+데이터를 추가할 때 : concat
+기존 배열에 특정 변화를 이르켜서 새로운 배열을 만들어줌 : map
+데이터 제거 : slice
+조건에 따라 찾기 : filter
+```
+
+------------------------------------------------------------------------
+
+불변성이 중요한 이유
+----------
+
+
+onkeyPress 입력 키를 전달 받는다.
