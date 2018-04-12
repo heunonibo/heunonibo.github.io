@@ -1,0 +1,422 @@
+---
+layout: post
+title:  "React Day1 - 리액트 시작하기, 작업셋팅, JSX, Props, State"
+date:   2018-03-27 15:35:00 +0900
+categories: jekyll update
+---
+> ##### 이 포스팅은 `React로 구현하는 웹 애플리케이션 제작 CAMP 4기` 수업 내용 바탕으로 정리된 글 입니다.
+
+리액트 시작하기
+---
+1) 리액트 시작하기
+* 프론트엔드 라이브러리
+* 웹 애플리케이션으로 브라우저로 많은 것을 할 수 있다. (사용자와 교류)
+* 귀찮은 DOM관리와 상태 관리를 최소화하고 기능 개발에만 초점을 맞추려고 사용하는 것이 프론트엔드 라이브러리.
+* 생산성과 유지보수와 관련이 있다.
+* React, Angular, Vue
+* React : 데이터를 넣으면 View가 나오는 라이브러리. 인터페이스를 컴포넌트로 쪼개서 조립해서 보여주는 것. (재사용)
+  페이스북 개발자들이 라이브러리 성능과 개발자 경험
+  라우터, 상태 관리, 다국어지원 같은 것들은 서드파티 라이브러리로 나눠져있다.
+* 우리는 지속해서 데이터가 변화하는 대규모 애플리케이션을 구축하기 위해 리액트를 만들었습니다.
+* MVC, MVVM, MVM 등을 사용하던 기존 웹 프레임워크 / 라이브러리 : 공통점은 Model
+* Model은 양방향 바인딩인한 통해서 모델의 값이 변하면은 View에서 어떤걸 바뀔지 통해서 변화시킴
+  변화(Mutation) :   
+* 데이터(모델)가 바뀌면 그냥 View을 날리고 새로 만들면 어떨까? -> DOM기반으로 작동하기 때문에 View을 계속적으로 만들면
+  성능적으로 문제가 있음 -> 그래서 Virtual DOM이 생김
+* Virtual DOM : 변화가 일어나면 가상의 돔에서 결과를 그린다음에 기존의 돔과 비교해서 바뀐 부분만 업데이트함.
+                새로 그려내서 기존 것과 비교해서 바뀐 부분을 찾아냄
+
+
+
+2) React AND Virtual DOM
+* DOM의 문제점
+  브라우저 레이아웃 엔진
+  브라우저는 새로 그려주는 역할을 하는데 Repaint & Reflow 가 발생됨.
+  Repaint : 그려주는것.(레이아웃이 변경되지 않은 것)
+  Reflow : 위치 크기를 정ㅈ해줌.
+
+리액트는 Reflow가 바뀌는 것을 최소화 하는 것.
+Reflow가 여러번 발생하면 묶어서 한번에 처리하는 기능을 브라우저가 처리하고 있지만,
+Reflow를 끊어서 작업을 하는 경우 리플로우가 많이 발생하는 경우 브라우저에서 버벅임이 생김.
+Virtual DOM 은 필요한 것만 바꿔주기 때문에 다양한 업데이트를 해도 성능적으로 문제가 없음.
+리액트는 DOM을 건드리는 것을 최소화함.
+
+
+
+3) Webpack AND Babel
+Webpack : 번들링(묶어준다) 되면은 오류가 나지 않도록 순서대로 코드를 합쳐줌
+          이미지 파일은 base64로 바꿔서 JS로 넣어줌.
+Babel :   정식 자바스크립트 문법이 아닌 것들(ES6) 를 예전 자바스크립트 형태로 변환시켜서 작동 시켜주는 것.
+
+
+4) 작업 준비
+1. Node.js : Webpack 과 Babel 같은 도구들이 Node.js 기반으로 만들어져있음으로 Node.js 를 설치한다.
+2. yarn    : npm과 같은 패키지 매니저 도구로 프로젝트에서 사용하는 라이브러리를 설치하고
+             해당 라이브러리들의 버전을 관리할 때 사용함 (더 나은 속도, 더 나은 캐싱 시스템)
+3. 코드 에디터 : VSCode, Atom, WebStrom, Sublime 등
+4. Git for Windows 설치 : 터미널에 입력해야 할 것들을 함께 설치되는 Git bash 에서 입력.
+5. create-react-app 설치 (리액트 앱을 만들어주는 도구)
+  npm install -g create-react-webapp
+  create-react-webapp hello-react
+  cd hello-react
+  npm start
+
+
+
+5)
+* 셀프 클로징 태그는 꼭 닫아줘야 한다.
+* 두 개 이상의 엘리먼트는 div로 감싸줘야한다.
+* 불 필요한 Div 사용을 막기 위해 Fragment 로 감싸줄 수 있다.
+* var는 Scope가 함수 단위 , const 와 let 은 Scope가 블록 단위
+* 값을 바꿔야 할 떄 let , 상수처럼 값을 바꾸지 않을때는 const 선언
+  const 완전히 고정적인 값은 아니다. 어떠한 객체를 가리키고 있는 지만 고정적이지 객체의 내부의 것은 바뀔 수 있다.
+
+* && 사용 시
+  true && true    -> true
+  true && 'asdf'  -> 'asdf'
+
+
+
+6) function a() {} 와 const b = () => {} 차이
+  화살표 함수는 this, arguments, super 개념이 없는 익명 함수이다
+  const a  = { bark: function() {console.log(this)} };      => 자기 자신 bark를 가리키게 됨
+  const b = () => { bark: function() {console.log(this)} }; => window 를 가리키게 됨
+
+
+7) Style 과 className
+<pre><code>
+  Style
+
+  import React, { Component, Fragment } from 'react';
+
+  class App extends Component {
+    render() {
+      const style = {
+        background : '#000',
+        padding : '16px 15px 13px 10px',
+        color: '#fff',
+        fontSize: '12vw'
+      };
+      return (
+        <div style={style}>
+          안녕
+        </div>
+      );
+    }
+  }
+
+  export default App;
+
+
+</code></pre>
+<pre><code>
+  className
+
+  import React, { Component, Fragment } from 'react';
+  import './App.css';
+
+  class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        안녕
+      </div>
+    );
+  }
+  }
+
+  export default App;
+
+</code></pre>
+
+
+8) 주석
+<pre><code>
+  <!-- {/* 주석 */}
+  <h1 //그 사이에 주석>리액트</h1> -->
+</code></pre>
+
+
+props 와 state
+---
+props : 부모 컨포넌트가 자식 컴포넌트에게 주는 값. 자식 컴포넌트에서는 props 받아오기만 하고,
+        받아온 props 는 직접 수정 할 수는 없다.
+        부모가 자식을 렌더링 할 때 넣어주는 값
+
+state : 컴포넌트 자체적으로 값을 수정 할 수 있다. 내장 컴포넌트가 자기 자신을 위해서 사용해서
+        자기 자신을 위해 값을 업데이트 할 수 있음.
+
+
+
+
+9) defaultProps : props 의 기본값을 설정해 줌.
+<pre><code>
+import React, { Component } from 'react';
+
+class MyName extends Component {
+  static defaultProps = {
+      name : '기본이름'
+  }
+  render() {
+      return (
+          <div>
+              안녕하세요 제 이름은 {name} 입니다.
+          </div>
+      );
+  }
+}
+
+export default MyName;
+</code></pre>
+
+* App.js 에서 <MyName /> 이런 식으로 name 값을 생략해버릴때 '기본이름'이 나타나게 된다.
+  static defaultProps 는 ES7 문법임으로 오류가 나는데 Babel 을 사용하고 있음으로 상관없다.
+  기본적으로 아래와 같이 MyName.defaultProps 로 사용할 수 있다.
+
+<pre><code>
+import React, { Component } from 'react';
+
+class MyName extends Component {
+  render() {
+      return (
+          <div>
+              안녕하세요 제 이름은 {name} 입니다.
+          </div>
+      );
+  }
+}
+
+MyName.defaultProps = {
+    name : '기본이름'
+}
+
+export default MyName;
+</code></pre>
+
+
+10) 함수형 컴포넌트
+* 함수형 컴포넌트는 Props 를 파라미터로 가져옵니다.
+
+비구조화 할당 문법
+<pre><code>
+import React from 'react';
+
+const MyName = ({ name }) => {
+  return (
+    <div>
+      안녕하세요! 제 이름은 {name} 입니다.
+    </div>
+  );
+};
+
+export default MyName;
+</code></pre>
+
+<pre><code>
+기존에는
+const = object = {a: 1, b:2}; 에 접근 하려면
+
+const a = object.a;
+const b = object.b; 로 직접 입력해야되는데
+
+비구조화 할당 문법으로는
+
+const {a, b} = object; 라고 적으면
+object 값이 a로 오고, b로 오게 된다.
+
+비구조화 할당 문법은 함수에도 사용할 수 있다.
+
+const object = {a: 1, b: 2};
+function foo(object) {
+	console.log(object.a);
+	console.log(object.b);
+}
+foo(object);          // 1, 2 출력
+
+이 문법을 비구조화 할당 문법으로 사용하면
+const object = {a: 1, b: 2};
+function foo({a, b}) {
+	console.log(a);
+	console.log(b);
+}
+foo(object);          // 1, 2 출력
+
+위와 같이 사용할 수 있다.
+
+</code></pre>
+
+* 클래스 컴포넌트와 함수 컴포넌트의 차이점은
+  State 와 LifeCycle API가 아예 없다는것.
+  초기 마운트는 속도가 함수형 컴포넌트가 미세하게 빠르고, 메모리 자원도 덜 사용함.
+  (차이가 미세함으로 100여개 만들지 않는 이상 눈에 안띔)
+
+
+
+11) state
+* 동적인 데이터를 다룰 땐 state 를 사용한다.
+<pre><code>
+import React, { Component } from 'react';
+
+class Counter extends Component {
+  state = {
+    number: 0
+  }
+
+  handleIncrease = () => {
+    this.setState({
+      number: this.state.number + 1
+    });
+  }
+
+  handleDecrease = () => {
+    this.setState({
+      number: this.state.number - 1
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>카운터</h1>
+        <div>값: {this.state.number}</div>
+        <button onClick={this.handleIncrease}>+</button>
+        <button onClick={this.handleDecrease}>-</button>
+      </div>
+    );
+  }
+}
+
+export default Counter;
+</code></pre>
+
+11-1) state 정의
+* class fields 문법과 constructor 사용 시  constructor  문법이 더 늦게 호출된다.
+<pre><code>
+//constructor 문법
+
+import React, { Component } from 'react';
+
+class Counter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      number: 0
+    }
+  }
+
+  ...
+}
+</code></pre>
+
+
+12) setState
+* state 값을 바꾸기 위해서는 this.setState를 무족건 거쳐야한다. 이 함수가 호출되면 컴포넌트가
+  리렌더링 되도록 설계되어 있다.
+
+12-1) 전개연산자
+<pre><code>
+state = {
+  number: 0,
+  foo: {
+    bar: 0,
+    foobar: 1
+  }
+}
+
+foobar 에 setState 로 값을 변경 하려고 했으나 변경되지 않는다.
+그럴때 전개 연산자를 사용하면 된다.
+
+this.setState = {
+  number: 0,
+  foo: {
+    ...this.state.foo,      // 객체를 새로 만든다.
+    foobar: 2
+  }
+}
+
+기존의 객체 안에 있는 내용을 해당 위치에 풀어준다는 의미이다.
+새로운 객체를 만드는데, 기존의 객체를 건드리지않고 값을 덮어쓸 수 있는 것을 만들 수 있다.
+
+const object = {a: 1, b: 2};
+const object2 = {a : object.a , b: object.b};      
+object2        // {a: 1 , b: 2}
+const object3 = {...object};
+object3        // {a: 1 , b: 2}
+const object4 = {...object, a: 10};
+object4        // {a: 10, b: 2}
+object         // {a: 1 , b: 2}
+
+const deep = {
+  a: 1,
+  b: {
+    c: {
+      d: {
+        a: 1,
+        b: 2
+      }
+    }
+  }
+}
+
+위와같이 deep 한 경우 아래와 같이 적어줘야 되는데
+const deep2 = {...deep, b: {...deep, c: {...deep, d: {...deep, a: 10}} }}
+
+deep 한 경우 전개 연산자가 길어짐으로 이럴때 immutable.js 혹은 immer.js 를 사용하여 작업을 간단하게 할 수 있다.
+</code></pre>
+
+
+12-2) setState에 객체 대신 함수를 전달하기
+<pre><code>
+
+handleIncrease = () => {
+  this.setState({
+      number : this.state.number + 1
+  })
+}
+
+위와 같은 코드를 아래와 같이 쓸수 있고,
+
+handleIncrease = () => {
+  this.setState(
+    ({state}) => ({ number : this.state.number + 1  })
+  )
+}
+
+위와 같은 코드를 비구조화 할당 문법을 사용해서 아래와 같이 쓸수 있다.
+
+handleIncrease = () => {
+  this.setState(
+    ({ number }) => ({ number : number + 1  })
+  )
+}
+
+
+그리고 강사님이 자주 사용하는 방식은 아래와 같다.
+비구조화 할당을 미리 쓰는 방법!
+
+handleIncrease = () => {
+  const { number }  = this.state;
+  this.setState({
+    number : number + 1
+  })
+}
+</code></pre>
+
+
+13) 이벤트 설정
+* 자바스크립트에서는 이벤트 설정 시 onclick 으로 소문자로 작성하는데 그리고 react에서 이벤트를 설정할때는
+  언제나 camelCase로 작성해야 된다. (Ex. onClick , onChange , OnKeyPress)
+* 이벤트에 전달해주는 값은 함수여야 합니다. onClick={this.handleIncrease()} 이런 식으로 작성하게 되면
+  렌더링 할 때마다 해당 함수가 호출된다. 그럼 렌더링 -> 함수 호출 -> setState -> 렌더링 -> 함수호출 -> 무한반복 됨.
+<pre><code>
+render() {
+  return (
+    <div>
+      <h1>카운터</h1>
+      <div>값: {this.state.number}</div>
+      <button onClick={this.handleIncrease}>+</button>
+      <button onClick={this.handleDecrease}>-</button>
+    </div>
+  );
+}
+</code></pre>
