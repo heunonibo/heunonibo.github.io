@@ -163,7 +163,7 @@ console.log(styles) 와 console.log(NotStyles) 로 각기 다른 class 명을 �
 
 {% highlight html %}
 <div className="Stylish"></div>
-{% highlight html %}
+{% endhighlight html %}
 
 
 ### classnames 모듈 사용
@@ -197,6 +197,29 @@ export default Stylish;
 {% endhighlight %}
 
 classname 은 조건부 클래스 설정을 할 때 유용하게 사용됩니다.
+
+classnames 라이브러리를 사용하지 않은 채 조건부 클래스를 사용하려면 아래와 같이 작성해야 됩니다.
+
+{% highlight javascript %}
+// src/Stylish.js
+
+import React, { Component } from 'react';
+import classname from 'classnames/bind';
+import styles from './Stylish.css';
+
+const cx = classnames.bind(styles)
+
+const Stylish = ({bordered}) => {
+    console.log(styles);
+    return (
+        <div className={cx('Stylish')}>
+            <div className={`${styles.box} ${styles.bordered}`} /></div>
+        </div>
+    );
+}
+
+export default Stylish;
+{% endhighlight %}
 
 
 
