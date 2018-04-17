@@ -165,6 +165,7 @@ console.log(styles) 와 console.log(NotStyles) 로 각기 다른 class 명을 �
 
 ## classnames 모듈 사용
 CSS Module 사용 시에 claanames 라는 라이브러리를 같이 사용하면 유용합니다.
+조건부 클래스 설정을 할 떄 유용하게 사용됩니다.
 
 {% highlight javascript %}
 yarn add classnames
@@ -411,7 +412,7 @@ yarn add styled-components
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-const Box = styled.div `
+const Box = styled.div 백쿼터
     background: red;
     width: 100px;
     height: 100px;
@@ -429,7 +430,9 @@ const Box = styled.div `
     &:hover {
         background: black;
     }
-`;
+백쿼터;
+
+* ㅠㅠ 백쿼터 기호를 사용해야 되는데 그걸 쓰면 highlight 가 제대로 안나온다... 저게뭐얄...
 
 const Styled = () => {
     return (
@@ -445,6 +448,7 @@ const Styled = () => {
 
 export default Styled;
 
+// src/App.js
 import React, { Component } from 'react';
 import Styled from './Styled';
 
@@ -453,81 +457,6 @@ class App extends Component {
     return (
       <div>
         <Styled />
-      </div>
-    );
-  }
-}
-
-export default App;
-
--------------------------------------------------------
-// src/App.js
-
-
-```
-
-## classnames 모듈의 활용
-조건부 클래스 설정을 할 때 유용하게 사용하는 라이브러리입니다.
-
-
-### classnames 설치 하기
-{% highlight javascript %}
-yarn add classnames
-{% endhighlight %}
-
-### classnames 사용하기
-```
-// src/Stylish.js
-
-import React from 'react';
-import classNames from 'classnames/bind';
-import styles from './Stylish.css';
-
-const cx = classNames.bind(styles);
-
-const Stylish = ({bordered}) => {
-    console.log(styles);
-    return (
-        <div className={cx('Stylish')}>
-            <div className={cx('box', {bordered})}></div>
-        </div>
-    );
-}
-
-export default Stylish;
-
--------------------------------------------------------
-
-// src/Stylish.css
-
-.Stylish {
-    width: 100px;
-    height: 100px;
-    background: blue;
-}
-
-.box {
-    width: 50px;
-    height: 50px;
-    background: white;
-}
-
-.box.bordered {
-    border:10px solid red;
-}
-
--------------------------------------------------------
-
-// src/App.js
-
-import React, { Component } from 'react';
-import Stylish from './Stylish';
-
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <Stylish bordered />
       </div>
     );
   }
