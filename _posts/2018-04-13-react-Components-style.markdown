@@ -8,7 +8,6 @@ categories: jekyll update
 ##### 이 포스팅은 'React로 구현하는 웹 애플리케이션 제작 CAMP 4기' 수업 내용으로 정리된 글입니다.
 
 <br />
-<br />
 
 컴포넌트 스타일링이란 CSS스타일을 작성할 때 어떠한 방식으로 사용하느냐를 의미합니다.
 
@@ -31,8 +30,6 @@ CSS(Cascading Style Sheet)를 작성하다보면 줄잇는 요소의 Depth 들�
 * Styled-JS
 
 <br />
-<br />
-<br />
 
 # 기본적인 CSS 작성방법
 기본적인 CSS 작성방법은 import로 css 파일을 불러와 기존에 사용하던 방법대로 작성합니다.
@@ -41,8 +38,6 @@ CSS(Cascading Style Sheet)를 작성하다보면 줄잇는 요소의 Depth 들�
 import './App.css';
 {% endhighlight %}
 
-<br />
-<br />
 <br />
 
 # CSS Module
@@ -115,7 +110,6 @@ require.resolve('style-loader'),
 
 {% highlight javascript %}
 // src/Stylish.js
-
 import React from 'react';
 import styles from './Stylish.css';
 import NotStyles from './NotStylish.css';
@@ -133,7 +127,6 @@ const Stylish = () => {
 export default Stylish;
 
 // src/App.js
-
 import React, { Component } from 'react';
 import Stylish from './Stylish.js';
 
@@ -157,8 +150,7 @@ console.log(styles) 와 console.log(NotStyles) 로 각기 다른 class 명을 �
 클래스명 앞에 :global 을 붙여주면 클래스명 앞뒤에 파일 명, 해쉬 값이 들어가지 않은 클래스명을 사용할 수 있습니다.
 
 {% highlight css %}
-src/Stylish.css
-
+<!-- src/Stylish.css -->
 :global .Stylish {
   width: 100px;
   height: 100px;
@@ -182,7 +174,6 @@ yarn add classnames
 
 {% highlight javascript %}
 // src/Stylish.js
-
 import React, { Component } from 'react';
 import classname from 'classnames/bind';
 import styles from './Stylish.css';
@@ -202,12 +193,10 @@ export default Stylish;
 {% endhighlight %}
 
 classname 은 조건부 클래스 설정을 할 때 유용하게 사용됩니다.
-
 classnames 라이브러리를 사용하지 않은 채 조건부 클래스를 사용하려면 아래와 같이 작성해야 됩니다.
 
 {% highlight javascript %}
 // src/Stylish.js
-
 import React, { Component } from 'react';
 import classname from 'classnames/bind';
 import styles from './Stylish.css';
@@ -226,8 +215,6 @@ const Stylish = ({bordered}) => {
 export default Stylish;
 {% endhighlight %}
 
-<br />
-<br />
 <br />
 
 # Sass
@@ -248,7 +235,6 @@ webpack.config.dev.js 파일에서 .css 검색 후 해당 영역을 복사한 �
 
 {% highlight javascript %}
 // config/webpack.config.dev.js
-
 {
   test: /\.css$/,
   use: [
@@ -323,13 +309,13 @@ webpack.config.dev.js 파일에서 .css 검색 후 해당 영역을 복사한 �
 },
 {% endhighlight %}
 
-### 컴포넌트 단위 폴더 만들기
+## 컴포넌트 단위 폴더 만들기
 아래와 같이 컴포넌트 단위로 폴더를 만들 경우, 추후에 컴포넌트가 많아질 경우 관리하기도 쉽고 컴포넌트 테스팅을 하기도 좋습니다.
 * src/Sassy/Sassy.scss
 * src/Sassy/Sassy.js
 * src/Sassy/index.js
 
-```
+{% highlight javascript %}
 // src/Sassy/Sassy.scss
 
 $my-color: #00ff2f; // 이런식으로 변수를 설정하거나
@@ -406,26 +392,22 @@ class App extends Component {
 }
 
 export default App;
+{% endhighlight %}
 
-```
+<br />
 
-
-## Styled-components
-
+# Styled-components
 Styled-components 는 CSS-in-JS 라이브러리 중에 하나입니다.
 Styled-components 은 JLiteral Template 문법을 사용해서 JS 파일 내에서 사용하기 때문에 여러 파일을 왔다갔다하지 않아도 됩니다.
 
-### Styled-components 설치
-
+## Styled-components 설치
 {% highlight javascript %}
 yarn add styled-components
 {% endhighlight %}
 
-### Styled-components 사용하기
-
-```
+## Styled-components 사용하기
+{% highlight javascript %}
 // src/Styled.js
-
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
@@ -552,4 +534,4 @@ class App extends Component {
 }
 
 export default App;
-```
+{% endhighlight %}
