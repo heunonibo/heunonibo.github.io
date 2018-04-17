@@ -245,7 +245,7 @@ webpack.config.dev.js 파일에서 .css 검색 후 해당 영역을 복사한 �
         importLoaders: 1,
         // CSS modules 와 localIdentName 추가
         modules: true,
-        localIdentName: '[path][name]__[local]--[hash:base64:5]'
+        localIdentName: '[path][name]__ [local]--[hash:base64:5]'
       },
     },
     {
