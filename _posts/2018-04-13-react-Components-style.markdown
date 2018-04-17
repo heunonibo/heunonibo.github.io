@@ -412,7 +412,7 @@ yarn add styled-components
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-const Box = styled.div 백쿼터
+const Box = styled.div `
     background: red;
     width: 100px;
     height: 100px;
@@ -430,7 +430,7 @@ const Box = styled.div 백쿼터
     &:hover {
         background: black;
     }
-백쿼터;
+\`;
 
 * ㅠㅠ 백쿼터 기호를 사용해야 되는데 그걸 쓰면 highlight 가 제대로 안나온다... 저게뭐얄...
 
