@@ -223,14 +223,328 @@ export default Stylish;
 
 
 
-## SASS
+## Sass
 
+Sass는 CSS의 단점을 보완하는 CSS 전처리기 입니다.
 
+### Sass 설치하기
+Webpack 을 사용하고 있기 때문에 아래와 같이 설치해줍니다.
+
+{% highlight javascript %}
+yarn add node-sass sass-loader
+{% endhighlight %}
+
+### Webpack 설정하기
+webpack.config.dev.js 파일에서 .css 검색 후 해당 영역을 복사한 후에 test 명을 .scss 로 변경해줍니다.
+<br />
+하단에는 아래 코드와 같이 { loader: require.resolve('sass-loader'), } 코드를 붙여주면 되는데, 여기서 코드가
+하는 일은 webpack 처리가 시작이 되면 loader 해당 코드에서 require.resolve 가 있으면 처음 파일을 불러올 때 해당 파일이 있는지 먼저 확인 한 후에 실행됨으로, 없으면 에러를 호출하게 됩니다.
+
+```
+// config/webpack.config.dev.js
+
+{
+  test: /\.css$/,
+  use: [
+    require.resolve('style-loader'),
+    {
+      loader: require.resolve('css-loader'),
+      options: {
+        importLoaders: 1,
+        // CSS modules 와 localIdentName 추가
+        modules: true,
+        localIdentName: '[path][name]__[local]--[hash:base64:5]'
+      },
+    },
+    {
+      loader: require.resolve('postcss-loader'),
+      options: {
+        // Necessary for external CSS imports to work
+        // https://github.com/facebookincubator/create-react-app/issues/2677
+        ident: 'postcss',
+        plugins: () => [
+          require('postcss-flexbugs-fixes'),
+          autoprefixer({
+            browsers: [
+              '>1%',
+              'last 4 versions',
+              'Firefox ESR',
+              'not ie < 9', // React doesn't support IE8 anyway
+            ],
+            flexbox: 'no-2009',
+          }),
+        ],
+      },
+    },
+  ],
+},
+{
+  test: /\.scss$/,
+  use: [
+    require.resolve('style-loader'),
+    {
+      loader: require.resolve('css-loader'),
+      options: {
+        importLoaders: 1,
+      },
+    },
+    {
+      loader: require.resolve('postcss-loader'),
+      options: {
+        // Necessary for external CSS imports to work
+        // https://github.com/facebookincubator/create-react-app/issues/2677
+        ident: 'postcss',
+        plugins: () => [
+          require('postcss-flexbugs-fixes'),
+          autoprefixer({
+            browsers: [
+              '>1%',
+              'last 4 versions',
+              'Firefox ESR',
+              'not ie < 9', // React doesn't support IE8 anyway
+            ],
+            flexbox: 'no-2009',
+          }),
+        ],
+      },
+    },
+    {
+      loader: require.resolve('sass-loader'),
+      options: {
+      },
+    }
+  ],
+},
+
+```
+
+### 컴포넌트 단위 폴더 만들기
+아래와 같이 컴포넌트 단위로 폴더를 만들 경우, 추후에 컴포넌트가 많아질 경우 관리하기도 쉽고 컴포넌트 테스팅을 하기도 좋습니다.
+* src/Sassy/Sassy.scss
+* src/Sassy/Sassy.js
+* src/Sassy/index.js
+
+```
+// src/Sassy/Sassy.scss
+
+$my-color: #00ff2f; // 이런식으로 변수를 설정하거나
+
+// mixin 이란것을 사용해서 쉽게 스타일을 재사용 할 수 있습니다.
+@mixin centerize() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+.Sassy {
+  .nested {
+    .very-nested {
+      // 이런식으로 CSS 를 감싸서 작성 할 수 있습니다.
+      // .Sassy .nested .very-nested { } 와 같죠.
+      background: $my-color;
+      color: white;
+
+      // mixin 을 사용합니다.
+      @include square(100px);
+      @include centerize();
+    }
+  }
+}
+
+-------------------------------------------------------
+
+// src/Sassy/Sassy.js
+
+import React from 'react';
+import './Sassy.scss';
+
+const Sassy = () => {
+  return (
+    <div className="Sassy">
+      <div className="nested">
+        <div className="very-nested">
+          Sass 테스트
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Sassy;
+
+-------------------------------------------------------
+
+// src/Sassy/index.js
+
+export { default } from './Sassy';
+
+-------------------------------------------------------
+
+// src/App.js
+
+import React, { Component } from 'react';
+import Sassy from './Sassy';
+
+class App extends Component {
+  render() {
+    return (  
+      <div>
+        <Sassy />
+      </div>
+    );
+  }
+}
+
+export default App;
+
+```
 
 
 ## Styled-components
 
-자바스크립
+Styled-components 는 CSS-in-JS 라이브러리 중에 하나입니다.
+Styled-components 은 JLiteral Template 문법을 사용해서 JS 파일 내에서 사용하기 때문에 여러 파일을 왔다갔다하지 않아도 됩니다.
 
+### Styled-components 설치
+
+{% highlight javascript %}
+yarn add styled-components
+{% endhighlight %}
+
+### Styled-components 사용하기
+
+```
+// src/Styled.js
+
+import React, { Component } from 'react';
+import styled from 'styled-components';
+
+const Box = styled.div `
+    background: red;
+    width: 100px;
+    height: 100px;
+    .nested {
+        background: green;
+        color: white;
+        padding: 8px;
+        .hello {
+            background: white;
+            color: black;
+            padding: 8px;
+            font-size: 12px;
+        }
+    }
+    &:hover {
+        background: black;
+    }
+`;
+
+const Styled = () => {
+    return (
+        <Box>
+            <div className="nested">
+                <div className="hello">
+                    Styled Components TEST
+                </div>
+            </div>
+        </Box>
+    );
+}
+
+export default Styled;
+
+import React, { Component } from 'react';
+import Styled from './Styled';
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Styled />
+      </div>
+    );
+  }
+}
+
+export default App;
+
+-------------------------------------------------------
+// src/App.js
+
+
+```
 
 ## classnames 모듈의 활용
+조건부 클래스 설정을 할 때 유용하게 사용하는 라이브러리입니다.
+
+
+### classnames 설치 하기
+{% highlight javascript %}
+yarn add classnames
+{% endhighlight %}
+
+### classnames 사용하기
+```
+// src/Stylish.js
+
+import React from 'react';
+import classNames from 'classnames/bind';
+import styles from './Stylish.css';
+
+const cx = classNames.bind(styles);
+
+const Stylish = ({bordered}) => {
+    console.log(styles);
+    return (
+        <div className={cx('Stylish')}>
+            <div className={cx('box', {bordered})}></div>
+        </div>
+    );
+}
+
+export default Stylish;
+
+-------------------------------------------------------
+
+// src/Stylish.css
+
+.Stylish {
+    width: 100px;
+    height: 100px;
+    background: blue;
+}
+
+.box {
+    width: 50px;
+    height: 50px;
+    background: white;
+}
+
+.box.bordered {
+    border:10px solid red;
+}
+
+-------------------------------------------------------
+
+// src/App.js
+
+import React, { Component } from 'react';
+import Stylish from './Stylish';
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Stylish bordered />
+      </div>
+    );
+  }
+}
+
+export default App;
+```
