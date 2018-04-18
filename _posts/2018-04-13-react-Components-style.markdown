@@ -478,12 +478,15 @@ const Styled = () => {
     );
 }
 
+`
+  백틱 ?
+`
 export default Styled;
 
 테스트를 해 봅시다
 {% endhighlight %}
 
-{% highlight react %}
+{% highlight react linenos %}
 // highlight react
 const Styled = () => {
     return (
