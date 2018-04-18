@@ -464,7 +464,7 @@ export default App;
 {% endhighlight %}
 
 
-```
+```javascript
 const Styled = () => {
     return (
         <Box>
@@ -481,3 +481,18 @@ export default Styled;
 
 테스트를 해 봅시다
 ```
+
+{% highlight react %}
+// highlight react
+const Styled = () => {
+    return (
+        <Box>
+            <div className="nested">
+                <div className="hello">
+                    Styled Components TEST
+                </div>
+            </div>
+        </Box>
+    );
+}
+{% endhighlight %}
