@@ -316,7 +316,7 @@ webpack.config.dev.js 파일에서 .css 검색 후 해당 영역을 복사한 �
 * src/Sassy/Sassy.js
 * src/Sassy/index.js
 
-{% highlight css %}
+```javascript
 // src/Sassy/Sassy.scss
 
 $my-color: #00ff2f; // 이런식으로 변수를 설정하거나
@@ -393,7 +393,7 @@ class App extends Component {
 }
 
 export default App;
-{% endhighlight %}
+```
 
 <br />
 
