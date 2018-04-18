@@ -462,3 +462,22 @@ class App extends Component {
 
 export default App;
 {% endhighlight %}
+
+
+```
+const Styled = () => {
+    return (
+        <Box>
+            <div className="nested">
+                <div className="hello">
+                    Styled Components TEST
+                </div>
+            </div>
+        </Box>
+    );
+}
+
+export default Styled;
+
+테스트를 해 봅시다
+```
