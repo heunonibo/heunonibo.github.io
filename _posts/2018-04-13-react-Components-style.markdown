@@ -108,7 +108,7 @@ require.resolve('style-loader'),
 
 {% endhighlight %}
 
-{% highlight javascript %}
+{% highlight react %}
 // src/Stylish.js
 import React from 'react';
 import styles from './Stylish.css';
@@ -173,7 +173,7 @@ yarn add classnames
 
 라이브러리를 설치 후 다음과 같이 사용하면 됩니다.
 
-{% highlight javascript %}
+{% highlight react %}
 // src/Stylish.js
 import React, { Component } from 'react';
 import classname from 'classnames/bind';
@@ -196,7 +196,7 @@ export default Stylish;
 classname 은 조건부 클래스 설정을 할 때 유용하게 사용됩니다.
 classnames 라이브러리를 사용하지 않은 채 조건부 클래스를 사용하려면 아래와 같이 작성해야 됩니다.
 
-{% highlight javascript %}
+{% highlight react %}
 // src/Stylish.js
 import React, { Component } from 'react';
 import classname from 'classnames/bind';
@@ -316,7 +316,7 @@ webpack.config.dev.js 파일에서 .css 검색 후 해당 영역을 복사한 �
 * src/Sassy/Sassy.js
 * src/Sassy/index.js
 
-{% highlight javascript %}
+{% highlight css %}
 // src/Sassy/Sassy.scss
 
 $my-color: #00ff2f; // 이런식으로 변수를 설정하거나
@@ -407,7 +407,7 @@ yarn add styled-components
 {% endhighlight %}
 
 ## Styled-components 사용하기
-{% highlight javascript %}
+{% highlight react %}
 // src/Styled.js
 import React, { Component } from 'react';
 import styled from 'styled-components';
@@ -461,42 +461,4 @@ class App extends Component {
 }
 
 export default App;
-{% endhighlight %}
-
-
-
-{% highlight react %}
-const Styled = () => {
-    return (
-        <Box>
-            <div className="nested">
-                <div className="hello">
-                    Styled Components TEST
-                </div>
-            </div>
-        </Box>
-    );
-}
-
-`
-  백틱 ?
-`
-export default Styled;
-
-테스트를 해 봅시다
-{% endhighlight %}
-
-{% highlight react linenos %}
-// highlight react
-const Styled = () => {
-    return (
-        <Box>
-            <div className="nested">
-                <div className="hello">
-                    Styled Components TEST
-                </div>
-            </div>
-        </Box>
-    );
-}
 {% endhighlight %}
