@@ -464,7 +464,8 @@ export default App;
 {% endhighlight %}
 
 
-```javascript
+
+{% highlight react %}
 const Styled = () => {
     return (
         <Box>
@@ -480,7 +481,7 @@ const Styled = () => {
 export default Styled;
 
 테스트를 해 봅시다
-```
+{% endhighlight %}
 
 {% highlight react %}
 // highlight react
