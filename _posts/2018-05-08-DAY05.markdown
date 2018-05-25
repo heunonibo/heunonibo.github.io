@@ -1,0 +1,29 @@
+---
+layout: post
+title:  "DAY05"
+date:   2018-05-08 15:06:00 +0900
+categories: jekyll update
+---
+
+##### 이 포스팅은 'React로 구현하는 웹 애플리케이션 제작 CAMP 4기' 수업 내용으로 정리된 글입니다.
+
+<br />
+
+HOC
+
+
+Render Prop : HoC처럼 반복되는 로직을 쉽게 재사용 할 수 있게 도와주고, 컴포넌트 코드를 작성하는 과정에서 컴포넌트를 함수로 감싸는 것이 아니라 JSX에서 렌더링 하는 방식으로 사용할 수 있게 해주는 패턴입니다.
+
+Render Prop 장점
+1. LifeCycle 기능을 온전히 누릴수 있음.
+2. Render Prop 을 여러번 사용하되어도 충돌할 일이 적다.
+3. HoC 에서 Render Prop으로 변경할 수 있지만, Render Prop에서 HoC 변경할 수 없는 코드가 존재한다(?)
+
+Render Prop은 일종의 패턴임.
+
+
+
+TypeScript + Flow 사용 시에 Immer.js 사용하는게 좋다. -> IDE상에서 자동 완성 기능 가능
+(Immutable.JS는 TypeScript와 Flow 의 업데이트가 안되어있어서)
+
+MobX : 리덕스 대체 
