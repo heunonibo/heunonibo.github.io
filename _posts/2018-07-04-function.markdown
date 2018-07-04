@@ -1,0 +1,53 @@
+---
+layout: post
+title:  "[Javascript] 함수"
+date:   2018-07-04 18:00:00 +0900
+categories: jekyll update
+---
+
+### 함수
+
+#### 호이스팅(Hoisting)
+호이스팅(Hoistiong) : 끌어올리다.
+변수 선언과 함수 선언을 맨 상단으로 끌어올리게 됩니다.
+
+{% highlight javascript %}
+console.log( a() );
+console.log( b() );
+console.log( c() );
+
+function a() {
+  return 'a';
+}
+
+var b = function bb() {
+  return 'bb';
+}
+
+var c = function() {
+  return 'c';
+}
+{% endhighlight %}
+
+위와 같은 코드를 작성 시에 호이스팅 됨으로 실제 코드는 아래와 같이 작동하여 오류가 나지 않습니다.
+
+{% highlight javascript %}
+function a() {
+  return 'a';
+}
+
+var b;
+var c;
+
+console.log( a() );
+console.log( b() );
+console.log( c() );
+
+b = function bb() {
+  return 'bb';
+}
+
+c = function() {
+  return 'c';
+}
+{% endhighlight %}
