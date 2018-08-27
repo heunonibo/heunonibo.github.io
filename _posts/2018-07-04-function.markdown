@@ -5,11 +5,11 @@ date:   2018-07-04 18:00:00 +0900
 categories: jekyll update
 ---
 
-### 함수
+## 함수
 
-#### 호이스팅(Hoisting)
+### 호이스팅(Hoisting)
 호이스팅(Hoistiong) : 끌어올리다.
-변수 선언과 함수 선언을 맨 상단으로 끌어올리게 됩니다.
+자바스크립트 엔진은 변수 선언과 함수 선언을 맨 상단으로 끌어올리게 됩니다.
 
 {% highlight javascript %}
 console.log( a() );
@@ -30,6 +30,7 @@ var c = function() {
 {% endhighlight %}
 
 위와 같은 코드를 작성 시에 호이스팅 됨으로 실제 코드는 아래와 같이 작동하여 오류가 나지 않습니다.
+함수 선언문은 코드 그대로 끌어올려지는 반면에, 함수 표현식은 변수선언만 끌어올려지게 됩니다.
 
 {% highlight javascript %}
 function a() {
@@ -51,3 +52,105 @@ c = function() {
   return 'c';
 }
 {% endhighlight %}
+
+
+
+### 함수선언문과 함수표현식
+
+#### 함수선언문(Function Declaration)
+{% highlight javascript %}
+function a() {
+  return 'a';
+}
+{% endhighlight %}
+
+#### 함수표현식 (Function Expression)
+함수표현식에는 기명 함수표현식과 익명 함수표현식이 있습니다.
+
+1) 변수를 선언하고
+2) 함수표현식을 선언합니다.
+3) 그리고 그 함수표현식을 변수에 할당합니다.
+
+함수선언문과 함수표현식의 큰 차이는 선언된 함수를 변수에 할당하냐의 차이 입니다.
+함수선언문은 호이스팅되어 그대로 상단으로 올라가게 되고, 함수표현식은 변수를 선언된 후
+해당 변수만 호이스팅되어 상단으로 올라가게 됩니다.
+예전에는 익명 함수표현식으로 사용 시에 브라우저가 어떤 함수가 에러인지 제대로 캐치하지 못했으나 지금은 기명 함수표현식과 같이 변수명으로 에러를 캐치해줌으로 어떤 함수표현식으로 사용해도 무방합니다. 자바스크립트의 Guru로 알려진 더글라스 크락포드는 호이스팅으로 인해 함수표현식을 추천하고 있습니다.  
+
+* 기명 함수표현식(Named Function Expression)
+{% highlight javascript %}
+var a = function aa() {
+  return 'aa';
+}
+{% endhighlight %}
+
+* 익명 함수표현식(Unnamed/annonymous Function Expression)
+{% highlight javascript %}
+var a = function() {
+  return 'aa';
+}
+{% endhighlight %}
+
+
+
+### 스코프, 실행컨텍스트
+
+#### 스코프 (Function Scope)
+(변수의) 유효범위
+
+#### 실행 컨텍스트 (Execution context)
+실행되는 코드덩어리(추상적인 개념)로 함수 호출 시에 함수 호출에 필요한 정보들을 불러오는 집합체입니다.
+* 호이스팅된 후에 함수 본문 내용과
+* this 바인딩 같은 것들을 불러온다.
+
+스코프와 실행 컨텍스트의 다른점은 스코프는 함수가 정의 될 때 결정되는 반면에, 실행 컨텍스트는 함수가 실행 될 때 생성된다.
+
+{% highlight javascript %}
+var a = 1;
+function outer() {
+  console.log(a);
+
+  function inner() {
+    console.log(a);
+    var a = 3;
+  }
+
+  inner();
+}
+
+outer();
+console.log(a);
+{% endhighlight %}
+
+##### 위의 코드 실행 설명
+1) 전역 실행 컨텍스트가 생성되고 (Global, 이때 호이스팅과 this 바인딩을 처리한다. 현재 this는 global 객체를 의미함)
+2) 호이스팅된 변수 a가 선언되고
+3) 함수 outer 가 선언되고 함수 outer가 호이스팅됩니다.
+4) 호이스팅이 끝나면 맨 상단으로 올라가 변수 a에 1을 할당합니다.
+5) 그리고 outer() 함수를 호출하고, outer 함수 실행컨텍스트가 생성됩니다. (실행 컨텍스트가 생성될때 호이스팅과 this 바인딩이 처리됩니다.)
+6) 함수 inner 선언됩니다.
+7) 함수 outer() 이내의 console.log(a); 는 outer 함수 이내에 a가 탐색 되지 않으니 global 에서 a를 탐색해 1을 호출합니다.
+8) inner() 함수를 호출되고, inner 함수 실행컨텍스트가 생성됩니다. (실행 컨텍스트가 생성될 떄 호이스팅과 this 바인딩이 처리됩니다.)
+9) inner() 함수 내부에 있는 변수 a가 호이스팅되어 끌어올려집니다.
+10) inner() 함수의 console.log(a)는 undefined가 출력됩니다.
+11) 이후에 변수 a에 3이 할당 됩니다.
+12) outer() 함수가 종료 된 후에 global 에서 a를 탐색해서 1이 출력됩니다.
+
+
+### 메소드
+객체가 가지고 있는 동작이다.
+함수와 메소드의 차이는 앞의 점이 있고, 없고의 차이.
+앞에 점이 있으면 메소드라고 볼 수 있고, 메소드는 호출시 this 를 바인딩한다.
+
+* this 바인딩이란?
+  실행 컨텍스트가 생성될 때 자바스크립트 엔진은 해당 함수 또는 메소드를 실행 시키기 위한 정보들을 담아내면서, 어떤 변수를 선언하였는지,
+  this에 무엇이 담겨야 하는지 등의 정보를 정하는 작업을 하는데 이 때 this 정보를 담는 과정을 this 바인딩이라고 한다.
+  자바스크립트는 각 상황별로 실행되는 시점에서 this에 연결되는 동적 바인딩이 이뤄집니다.
+
+
+
+### 콜백함수
+* 다른 함수 A의 매개변수로 콜백함수 B를 전달하면 A가 B의 제어권을 갖게 된다.
+* 특별한 요청이 없는 한(bind) A에 미리 정해진 방식에 따라 B를 호출한다.
+* 미리 정해진 방식이란? this 무엇으로 바인딩 할지, 매개변수에 어떤 값을 지정할 지, 어떤 타이밍에 콜백함수를 불러올 것인지 등.
+
+EX) foreach, setinterval, addEventListener
