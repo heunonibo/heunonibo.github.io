@@ -9,6 +9,7 @@ categories: jekyll update
 
 ```
 $('#button').on('click', function() {
+
   var date = new Date('2018/08/20 00:00:00');
   var today = new Date();
 
@@ -17,5 +18,6 @@ $('#button').on('click', function() {
   } else {
     $('#popup').show();
   };
+
 });
 ```
